@@ -10,6 +10,6 @@ public class EmployeePayrollData {
         this.salary = salary;
     }
     public String toString() {
-        return "Employee PayRoll Data: [Employee Id= "+id+", Name= "+name+", Salary= "+salary+"]";
+        return "[Employee Id= "+id+", Name= "+name+", Salary= "+salary+"]";
     }
 }
