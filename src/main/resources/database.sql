@@ -431,3 +431,55 @@ mysql> ALTER TABLE department
     -> ADD CONSTRAINT FOREIGN KEY(emp_id) REFERENCES employee(emp_id) ON DELETE CASCADE;
 Query OK, 0 rows affected (0.08 sec)
 Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> CREATE TABLE IF NOT EXISTS `payroll_services`.`employee_has_department` (
+    ->   `employee_emp_id` INT UNSIGNED NOT NULL,
+    ->   `department_dept_id` INT UNSIGNED NOT NULL,
+    ->   PRIMARY KEY (`employee_emp_id`, `department_dept_id`),
+    ->   INDEX `fk_employee_has_department_department1_idx` (`department_dept_id` ASC) VISIBLE,
+    ->   INDEX `fk_employee_has_department_employee1_idx` (`employee_emp_id` ASC) VISIBLE,
+    ->   CONSTRAINT `fk_employee_has_department_employee1`
+    ->     FOREIGN KEY (`employee_emp_id`)
+    ->     REFERENCES `payroll_services`.`employee` (`emp_id`)
+    ->     ON DELETE NO ACTION
+    ->     ON UPDATE NO ACTION,
+    ->   CONSTRAINT `fk_employee_has_department_department1`
+    ->     FOREIGN KEY (`department_dept_id`)
+    ->     REFERENCES `payroll_services`.`department` (`dept_id`)
+    ->     ON DELETE NO ACTION
+    ->     ON UPDATE NO ACTION)
+    -> ENGINE = InnoDB
+    -> DEFAULT CHARACTER SET = utf8mb4
+    -> ;
+Query OK, 0 rows affected (0.21 sec)
+
+mysql> show tables;
++----------------------------+
+| Tables_in_payroll_services |
++----------------------------+
+| company                    |
+| department                 |
+| employee                   |
+| employee_has_department    |
+| employee_payroll           |
+| payroll                    |
++----------------------------+
+6 rows in set (0.01 sec)
+
+mysql> INSERT INTO company (company_name) VALUES ('Bridgelabz'), ('TCS'), ('KPIT');
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM company;
++------------+--------------+
+| company_id | company_name |
++------------+--------------+
+|          1 | Bridgelabz   |
+|          2 | TCS          |
+|          3 | KPIT         |
++------------+--------------+
+3 rows in set (0.00 sec)
+
+
+mysql> INSERT INTO department (dept_name, emp_id) VALUES ('Sales', 1); INSERT INTO employee (name, phone_no, address, company_id, dept_id, gender, start_date) VALUES  ('Jhanvi K', '7878787878', 'Jamnagar', 1, 1, 'F', '2019-05-12');
+Query OK, 1 row affected (0.00 sec)
