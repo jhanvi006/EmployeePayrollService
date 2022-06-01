@@ -17,4 +17,11 @@ public class EmployeePayrollServiceTest {
         EmployeePayrollFileIOService.readData();
         System.out.println("No. of entries: "+employeePayrollData.length);
     }
+    @Test
+    public void givenEmployeePayrollInDB_WhenRetrieved_ShouldMatchEmployeeCount(){
+        employeePayrollService = new EmployeePayrollService();
+        List<EmployeePayrollData> employeePayrollData = employeePayrollService.retrieveEmployeePayrollData(EmployeePayrollService.IOService.DB_IO);
+        System.out.println(employeePayrollData);
+        Assertions.assertEquals(4, employeePayrollData.size());
+    }
 }
